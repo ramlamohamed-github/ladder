@@ -78,26 +78,51 @@ public class Dictionary extends JApplet
 				end = new JTextField("End");
 				b1 = new JButton("Load Dictinary from file");
 				b2 = new JButton("Load words from text field");
-				b3 = new JButton("Find Path(Load Dictinary First)");
+				b3 = new JButton("Find Path Swap(Load Dictinary First)");
+				//add anagrams button
+				b4 = new JButton("Find Path Anagram(Load Dictinary First)");
+				//add tail head buttons
+				b5 = new JButton("Find Path Head-Tail(Load Dictinary First)");
+				//b5.layout(new b);
 				b3.setEnabled(false);
+				//disable the button
+				//b4.setEnabled(false);
+				//disable the button
+				//b5.setEnabled(false);
+				
 				JPanel p = new JPanel();
 				JPanel p2 = new JPanel();
-				JPanel p3 = new JPanel(); // buttons
+				JPanel p3 = new JPanel();
+				//JPanel p4 = new JPanel();// buttons
+				
 				pA = new Painter();
 				add("West", p);
 				add("East", p2);
 				add("South", p3);
+				//add("south", p4);
 				p2.add(pA);
 				p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
 				p.add(textArea);
 				// p3.setLayout(new BoxLayout(p3,BoxLayout.Y_AXIS));
-				p3.setLayout(new GridLayout(3, 2, 0, 10));
+				p3.setLayout(new GridLayout(5, 2, 0, 10));
 				p3.add(b2);
 				p3.add(start);
 				p3.add(b1);
 				p3.add(end);
 				p3.add(someFile);
+				
+				//p4.setLayout(new());
+				
 				p3.add(b3);
+				//p3.add(someFile);
+				//a panel to add button 4 and a layout
+				p3.add(b4);
+				//p3.add(someFile);
+				//a panel to add buttons 5 and a layout
+				p3.add(b5);
+				//To set the background color of the buttons panel red
+				//p3.setBackground(Color.red);
+				
 
 				b1.addActionListener(new ActionListener()
 					{
