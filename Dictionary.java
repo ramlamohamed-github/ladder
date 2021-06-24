@@ -43,6 +43,8 @@ public class Dictionary extends JApplet
 		private JButton		b1;
 		private JButton		b2;
 		private JButton		b3;
+		private JButton		b4;
+		private JButton		b5;
 
 		private Painter		pA;
 
