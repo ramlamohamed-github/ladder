@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -7,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
@@ -45,6 +47,7 @@ public class Dictionary extends JApplet
 		private JButton		b3;
 		private JButton		b4;
 		private JButton		b5;
+		private JButton		b6;
 
 		private Painter		pA;
 
@@ -86,6 +89,8 @@ public class Dictionary extends JApplet
 				//add tail head buttons
 				b5 = new JButton("Find Path Head-Tail(Load Dictinary First)");
 				//b5.layout(new b);
+				//HTML button
+				b6 = new JButton("HTML");
 				b3.setEnabled(false);
 				//disable the button
 				//b4.setEnabled(false);
@@ -124,6 +129,8 @@ public class Dictionary extends JApplet
 				p3.add(b5);
 				//To set the background color of the buttons panel red
 				//p3.setBackground(Color.red);
+				p3.add(b6);
+				
 				
 
 				b1.addActionListener(new ActionListener()
@@ -200,6 +207,8 @@ public class Dictionary extends JApplet
 																+ " Is not in the Dictionary");
 										return;
 									}
+								
+								// swap result
 								int length = start.getText().length();
 								Graph g = new Graph();
 								String[] someStrings;
@@ -237,8 +246,62 @@ public class Dictionary extends JApplet
 								pA.setCost(g.getCost());
 								pA.paintResult(s2);
 								// System.out.println(s2);
+					
 							}
 					});
+				
+				b6.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e)
+						{
+						try {
+							FileWriter html_file = new FileWriter("ladder.html");
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						StringBuilder hg = new StringBuilder();
+						
+						hg.append("<!DOCTYPE html>\n");
+						hg.append("<html>\n\n");
+						hg.append("<head>\n");
+						hg.append("\t<title>Ladder</title>\n");
+						hg.append("\t<style>\n");
+						hg.append("\ttable{\n\t\tbackground-color: #ffd700;\n\t\tcolor: #ff0000;\n\t\tborder-spacing: 10px;\n" + 
+						          "\t\tfont-family: Arial;\n\t\tmargin-left: auto;\n\t\tmargin-right: auto;\n" + 
+								  "\t\tbox-shadow: inset -3px -3px 3px rgba(0,0,0,0.4), 3px 3px 5px 0px rgba(0,0,0,0.5);\n" + 
+						          "\t\tborder-radius: 0.8rem;\n\t}\n\n");
+						hg.append("\ttd{\n\t\tbackground-color: #ffff00;\n\t\tpadding: 30px;\n\t\twidth: 30px;\n\t\ttext-align: center;\n" + 
+						          "\t\tfont-size: 24px;\n\t\tfont-weight: bold;\n\t\ttext-shadow: 0px 1px 0px rgba(255,255,255,0.8)," + 
+								  "0px -1px 0px rgba(0,0,0,.8);\n\t\tbox-shadow: inset -5px -5px 7px rgba(0,0,0,0.4), " + 
+						          "2px 2px 3px 0px rgba(0,0,0,0.5);\n\t\tborder-radius: 0.8rem;\n\t}\n");
+						hg.append("\t</style>\n");
+						hg.append("</head>\n\n");
+						hg.append("<body>\n");
+						hg.append("\t<table>\n");
+						hg.append("\t\t<caption> No. Word </caption>\n");
+						
+						hg.append("\t</table>\n");
+						hg.append("</body>\n\n");
+						hg.append("</html>");
+						
+						//write the string to a file and close the file
+						//html_file.write(hg.toString());
+						
+						
+						//open the html file and launch it using the default browser.
+						File htmlGrid = new File("ladder.html");
+						try {
+							Desktop.getDesktop().browse(htmlGrid.toURI());
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
+						
+						
+						}
+				});
 			}
 
 		/**
