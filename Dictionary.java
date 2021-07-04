@@ -48,6 +48,7 @@ public class Dictionary extends JApplet
 		private JButton		b4;
 		private JButton		b5;
 		private JButton		b6;
+		private JButton		b7;
 
 		private Painter		pA;
 
@@ -96,6 +97,8 @@ public class Dictionary extends JApplet
 				//b4.setEnabled(false);
 				//disable the button
 				//b5.setEnabled(false);
+				b5.setEnabled(false);
+				b7= new JButton("Load words from dictionary (Anogram)");
 				
 				JPanel p = new JPanel();
 				JPanel p2 = new JPanel();
@@ -117,6 +120,7 @@ public class Dictionary extends JApplet
 				p3.add(b1);
 				p3.add(end);
 				p3.add(someFile);
+				p3.add(b7);
 				
 				//p4.setLayout(new());
 				
@@ -130,6 +134,7 @@ public class Dictionary extends JApplet
 				//To set the background color of the buttons panel red
 				//p3.setBackground(Color.red);
 				p3.add(b6);
+				p3.add(b7);
 				
 				
 
@@ -249,7 +254,88 @@ public class Dictionary extends JApplet
 					
 							}
 					});
-				
+				b5.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e)
+						{
+							long startTime = System.currentTimeMillis();
+							long totalTime = 0;
+							if (start.getText().length() != end.getText()
+									.length())
+								{
+									JOptionPane.showMessageDialog(null,
+											"Error: Strings must be"
+													+ "of equal length");
+									return;
+								}
+
+							if (exist(start.getText().toLowerCase()) == false)
+								{
+									JOptionPane
+											.showMessageDialog(
+													null,
+													"Error: "
+															+ start.getText()
+															+ " Is not in the Dictionary");
+									return;
+								}
+							if (exist(end.getText().toLowerCase()) == false)
+							{
+								JOptionPane
+										.showMessageDialog(
+												null,
+												"Error: "
+														+ end.getText()
+														+ " Is not in the Dictionary");
+								return;
+							}
+							int length = start.getText().length();
+                            				String strW = start.getText();
+                            				String endW = end.getText();
+							Graph g = new Graph();
+							String[] someStrings;
+							//String line;
+							someStrings = getAllStrings(length); // someStrings array holds all dict words of length
+							// StringTokenizer st;
+                          				// iterates through all dict of matching length
+							for (int i = 0; i < someStrings.length; i++)
+								{
+									// get the last char in strW
+                                  					char last = strW.charAt(length - 1);
+                                  					// get the first char in endW
+                                    					char first = endW.charAt(0);
+                                    					// if the last char doesn't match first char
+                                  					if (last == first){
+                                    					// we've found a chain
+                                  				}
+                                  			while (last != first) {
+                                   
+                                  
+                                  				// build a stack of words that start with last char
+                                     				while (!stack.isEmpty()){
+                                       				String currentWord = stack.pop();
+                                       				// check for a match
+                                     				}
+                                  			// build a graph
+                                  			// iterate through the list of second words in the chain
+                                  			// search for a word where the last char matches first char in endW
+                                  			// if not found, repeat starting with the last set of words in the chain
+                                  			// if someStrings is exhausted then try a different branch
+                                  			}
+								}
+
+							
+							// calculating processing time, cost
+                          				totalTime = System.currentTimeMillis()
+									- startTime;
+							elapsedTime = totalTime;
+							pA.setTime(elapsedTime);
+							pA.setCost(g.getCost());
+							pA.paintResult(s2);
+							// System.out.println(s2);
+						}
+				});
+
 				b6.addActionListener(new ActionListener()
 				{
 					public void actionPerformed(ActionEvent e)
@@ -300,6 +386,32 @@ public class Dictionary extends JApplet
 						
 						
 						
+						}
+				});
+				
+				b2.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e)
+						{
+							orginizedByLengthDict = new String[29][];
+							String[] tmpArray;
+							StringTokenizer st;
+							String s = textArea.getText();
+							st = new StringTokenizer(s);
+							tmpArray = new String[st.countTokens()];
+							String tmp;
+							for (int i = 0; i < tmpArray.length; i++)
+								{
+									tmp = st.nextToken();
+									if (tmp != null)
+										{
+											tmpArray[i] = tmp;
+										}
+								}
+							dictionary = tmpArray;
+							pA.paintString(dictionary.length);
+							start();
+
 						}
 				});
 			}
