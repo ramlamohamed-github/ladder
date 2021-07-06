@@ -33,8 +33,7 @@ public class Dictionary extends JApplet
 
 		private String[]	dictionary;
 		private String[][]	orginizedByLengthDict	= new String[29][];
-		
-		private JTextField	Afile;
+
 		private JTextField	someFile;
 		private JTextField	start;
 		private JTextField	end;
@@ -81,10 +80,9 @@ public class Dictionary extends JApplet
 				textArea.setPreferredSize(new Dimension(100, 250));
 				// textArea.setBounds(getBounds());
 				someFile = new JTextField("dictionary.txt");
-				Afile= new JTextField("dictionary3.txt");
 				start = new JTextField("Start");
 				end = new JTextField("End");
-				b1 = new JButton("Load Dictinary from file");
+				b1 = new JButton("Load Dictinary from file (SWAP)");
 				b2 = new JButton("Load words from text field");
 				b3 = new JButton("Find Path Swap(Load Dictinary First)");
 				//add anagrams button
@@ -99,8 +97,8 @@ public class Dictionary extends JApplet
 				//b4.setEnabled(false);
 				//disable the button
 				//b5.setEnabled(false);
-				b5.setEnabled(false);
-				b7= new JButton("Load words from dictionary (Anogram)");
+				//b5.setEnabled(false);
+				b7= new JButton("Load words from dictionary (Anagram)");
 				
 				JPanel p = new JPanel();
 				JPanel p2 = new JPanel();
@@ -123,7 +121,6 @@ public class Dictionary extends JApplet
 				p3.add(end);
 				p3.add(someFile);
 				p3.add(b7);
-				p3.add(Afile);
 				
 				//p4.setLayout(new());
 				
@@ -137,10 +134,11 @@ public class Dictionary extends JApplet
 				//To set the background color of the buttons panel red
 				//p3.setBackground(Color.red);
 				p3.add(b6);
+				//anagram dictionary
 				p3.add(b7);
 				
 				
-
+				//swap dictionary
 				b1.addActionListener(new ActionListener()
 					{
 						public void actionPerformed(ActionEvent e)
@@ -152,7 +150,7 @@ public class Dictionary extends JApplet
 								start();
 							}
 					});
-
+				//text field dictionary
 				b2.addActionListener(new ActionListener()
 					{
 						public void actionPerformed(ActionEvent e)
@@ -178,7 +176,7 @@ public class Dictionary extends JApplet
 
 							}
 					});
-
+				//swap method
 				b3.addActionListener(new ActionListener()
 					{
 						public void actionPerformed(ActionEvent e)
@@ -257,7 +255,8 @@ public class Dictionary extends JApplet
 					
 							}
 					});
-
+				
+				//HTML button
 				b6.addActionListener(new ActionListener()
 				{
 					public void actionPerformed(ActionEvent e)
@@ -311,16 +310,17 @@ public class Dictionary extends JApplet
 						}
 				});
 				
+				//anagram dictionary
 				b7.addActionListener(new ActionListener()
 				{
 					public void actionPerformed(ActionEvent e)
-						{
-							orginizedByLengthDict = new String[29][];
-							loadDictionary(someFile.getText());
-							pA.paintString(dictionary.length);
+					{
+						orginizedByLengthDict = new String[29][];
+						loadDictionary(someFile.getText());
+						pA.paintString(dictionary.length);
 
-							start();
-						}
+						start();
+					}
 				});
 			}
 
