@@ -255,7 +255,108 @@ public class Dictionary extends JApplet
 					
 							}
 					});
+				//anagram method
+				b4.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e)
+						{
+							long startTime = System.currentTimeMillis();
+							long totalTime = 0;
+							if (start.getText().length() != end.getText()
+									.length())
+								{
+									JOptionPane.showMessageDialog(null,
+											"Error: Strings must be"
+													+ "of equal length");
+									return;
+								}
+
+							if (exist(start.getText().toLowerCase()) == false)
+								{
+									JOptionPane
+											.showMessageDialog(
+													null,
+													"Error: "
+															+ start.getText()
+															+ " Is not in the Dictionary");
+									return;
+								}
+
+							if (exist(end.getText().toLowerCase()) == false)
+								{
+									JOptionPane
+											.showMessageDialog(
+													null,
+													"Error: "
+															+ end.getText()
+															+ " Is not in the Dictionary");
+									return;
+								}
+							
+							// swap result
+							//length of first word input
+							int length = start.getText().length();
+							//create new graph
+							String frstwrd = start.getText();
+							
+							Graph g = new Graph();
+							
+							String[] someStrings;
+							
+							String line;
+							//get all strings that are same length
+							someStrings = getAllStrings(length);
+							//create tokenizer
+							StringTokenizer st;
+							String lstwrd = frstwrd;
+							String prevwrd = frstwrd;
+							//go through string array
+							for (int i = 0; i < someStrings.length; i++)
+								{
+								
+								String arrwrd = someStrings[i].substring(0,length);
+								String[] frstwrdarr = frstwrd.split("");
+								boolean contain = Arrays.asList(arrwrd.split("")).containsAll(Arrays.asList(frstwrdarr));
+								int count=0;
+								if(contain) {
+							         for(int j=0;j<frstwrdarr.length;j++){
+							             char ltr = arrwrd.charAt(j);
+							            int num = frstwrd.indexOf(ltr);
+							            if(num==-1){
+							                count++;
+							            }
+							         }
+									if(count==0) {
+										System.out.println(frstwrd);
+										System.out.println(arrwrd);
+										System.out.println(contain);
+										g.addEdge(prevwrd,someStrings[i].substring(0,length),1);
+										prevwrd = lstwrd;
+										lstwrd=arrwrd;
+									}
+										
+									
+									
+								}
+								
+		
+								}
+
+							g.unweighted(start.getText().toLowerCase()
+									.trim());
+							g.printPath(lstwrd.toLowerCase().trim());
+							String s2 = g.getS();
+							//time
+							totalTime = System.currentTimeMillis()
+									- startTime;
+							elapsedTime = totalTime;
+							pA.setTime(elapsedTime);
+							pA.setCost(g.getCost());
+							pA.paintResult(s2);
+							System.out.println(s2);
 				
+						}
+				});
 				//HTML button
 				b6.addActionListener(new ActionListener()
 				{
