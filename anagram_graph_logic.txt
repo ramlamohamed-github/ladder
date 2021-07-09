@@ -1,0 +1,31 @@
+How to build "ANAGRAM" graph (aka Chain, or a Collection)?
+
+Unlike SWAP implementation, ANAGRAM graph will be linear.
+
+All words containing the same set of consonants are grouped together
+
+So, all four letter words containing the consoants M, N will be in one collection (This can be viewed as a linear chain).
+
+MOON 
+MOAN
+NOOM
+NOAM
+NUIM
+MIUN
+MNUI
+
+
+To simply your implementation, you can go with a Hash Map of ("String" "ArrayList").
+
+[1] Query the database for words of certain length (say length = 4)
+[2] Create multile array lists for each set of Anagrams.
+[3] Keep these ArrayLists in a HashMap where key is string of "consonants" and the value is the "ArrayList".
+
+So, your final structure is going to look like this
+
+MN (String, key) ==>  MOON, MOAN, NOOM, NOAM, NUIM, MIUM, MNUI  (ArrayList, value)
+BK (String, key) ==>  BOOK, BOAK, BKOA, OAKB, KOOB, BKOO (ArrayList, value)
+
+
+Once the above Hashmap is constructued, it is trivial to implement the methods.
+
