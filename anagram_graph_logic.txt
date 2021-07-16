@@ -29,3 +29,45 @@ BK (String, key) ==>  BOOK, BOAK, BKOA, OAKB, KOOB, BKOO (ArrayList, value)
 
 Once the above Hashmap is constructued, it is trivial to implement the methods.
 
+
+
+===========================================
+
+
+ArrayList1 = MOON, MOAN, NOON, NOAM, MIUN, MNUI
+ArrayList2 = FISH, SHIF
+ArrayList3 = WORD, DOWR
+
+
+Find the path between MOON and MIUN:
+MOON > MOAN > NOON > NOAM > MIUN,
+
+MOON 
+FISH
+MOAN
+SHIF
+NOOM
+WORD. 
+NOAM
+NUIM
+DOWR
+MIUN
+MNUI
+
+Algorithm:
+
+Create an empty ArrayList (Big)  of ArrayLists (Words);
+For each word you got from the database:
+   is the word in any ArrayList?
+   if yes, add the word to that ArrayList
+   if not, create a brand new ArrayList. And add the word to that ArrayList
+
+Once the for loop is done, you will have an ArrayList of ArrayLists.
+
+
+FInding the path between two words:
+1. are the two given words anagrams? if not, give out an error.
+2. Find out the ArrayList you need to chase.
+3. From that ArrayList, find out where the 1st word is sitting. And find out where the 2nd word is sitting.
+4. Print out all the words from index1 to index2.
+
