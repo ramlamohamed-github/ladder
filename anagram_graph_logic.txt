@@ -1,0 +1,73 @@
+How to build "ANAGRAM" graph (aka Chain, or a Collection)?
+
+Unlike SWAP implementation, ANAGRAM graph will be linear.
+
+All words containing the same set of consonants are grouped together
+
+So, all four letter words containing the consoants M, N will be in one collection (This can be viewed as a linear chain).
+
+MOON 
+MOAN
+NOOM
+NOAM
+NUIM
+MIUN
+MNUI
+
+
+To simply your implementation, you can go with a Hash Map of ("String" "ArrayList").
+
+[1] Query the database for words of certain length (say length = 4)
+[2] Create multile array lists for each set of Anagrams.
+[3] Keep these ArrayLists in a HashMap where key is string of "consonants" and the value is the "ArrayList".
+
+So, your final structure is going to look like this
+
+MN (String, key) ==>  MOON, MOAN, NOOM, NOAM, NUIM, MIUM, MNUI  (ArrayList, value)
+BK (String, key) ==>  BOOK, BOAK, BKOA, OAKB, KOOB, BKOO (ArrayList, value)
+
+
+Once the above Hashmap is constructued, it is trivial to implement the methods.
+
+
+
+===========================================
+
+
+ArrayList1 = MOON, MOAN, NOON, NOAM, MIUN, MNUI
+ArrayList2 = FISH, SHIF
+ArrayList3 = WORD, DOWR
+
+
+Find the path between MOON and MIUN:
+MOON > MOAN > NOON > NOAM > MIUN,
+
+MOON 
+FISH
+MOAN
+SHIF
+NOOM
+WORD. 
+NOAM
+NUIM
+DOWR
+MIUN
+MNUI
+
+Algorithm:
+
+Create an empty ArrayList (Big)  of ArrayLists (Words);
+For each word you got from the database:
+   is the word in any ArrayList?
+   if yes, add the word to that ArrayList
+   if not, create a brand new ArrayList. And add the word to that ArrayList
+
+Once the for loop is done, you will have an ArrayList of ArrayLists.
+
+
+FInding the path between two words:
+1. are the two given words anagrams? if not, give out an error.
+2. Find out the ArrayList you need to chase.
+3. From that ArrayList, find out where the 1st word is sitting. And find out where the 2nd word is sitting.
+4. Print out all the words from index1 to index2.
+
