@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.StringTokenizer;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JApplet;
@@ -41,15 +42,6 @@ public class Dictionary extends JApplet {
 
 	private JScrollPane sP;
 
-<<<<<<< HEAD
-		private JButton		b1;
-		private JButton		b2;
-		private JButton		b3;
-		private JButton		b4;
-		private JButton		b5;
-		private JButton		b6;
-		private JButton		b7;
-=======
 	private JButton b1;
 	private JButton b2;
 	private JButton b3;
@@ -59,7 +51,6 @@ public class Dictionary extends JApplet {
 	private JButton b7;
 	private JButton b8;
 	
->>>>>>> a6c41b61db0e8ad02be2ea722572fd1d6c09c2d8
 
 	private Painter pA;
 
@@ -69,283 +60,6 @@ public class Dictionary extends JApplet {
 	 * 
 	 * @param string
 	 */
-<<<<<<< HEAD
-		public void initComponents()
-			{
-				setLayout(new BorderLayout());
-				sP = new JScrollPane(textArea);
-				sP.setEnabled(true);
-				textArea = new JTextArea("a\nb\nc\none\ntwo\nthree\ntoo"
-						+ "\nbleed\nblood\ncake\nstorm\nflood"
-						+ "\nblend\nblond\nyes\nno");
-				textArea.setWrapStyleWord(true);
-
-				// textArea.setRows(20);
-				textArea.setPreferredSize(new Dimension(100, 250));
-				// textArea.setBounds(getBounds());
-				someFile = new JTextField("dictionary.txt");
-				start = new JTextField("Start");
-				end = new JTextField("End");
-				b1 = new JButton("Load Dictinary from file");
-				b2 = new JButton("Load words from text field");
-				b3 = new JButton("Find Path Swap(Load Dictinary First)");
-				//add anagrams button
-				b4 = new JButton("Find Path Anagram(Load Dictinary First)");
-				//add tail head buttons
-				b5 = new JButton("Find Path Head-Tail(Load Dictinary First)");
-				//b5.layout(new b);
-				//HTML button
-				b6 = new JButton("HTML");
-				//
-				b7 = new JButton("Find path with N steps(Load Dictinary First)");
-				b3.setEnabled(false);
-				//disable the button
-				b4.setEnabled(false);
-				//disable the button
-				b5.setEnabled(false);
-				
-				//disable the button
-				b7.setEnabled(false);
-				
-				JPanel p = new JPanel();
-				JPanel p2 = new JPanel();
-				JPanel p3 = new JPanel();
-				//JPanel p4 = new JPanel();// buttons
-				
-				pA = new Painter();
-				add("West", p);
-				add("East", p2);
-				add("South", p3);
-				//add("south", p4);
-				p2.add(pA);
-				p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
-				p.add(textArea);
-				// p3.setLayout(new BoxLayout(p3,BoxLayout.Y_AXIS));
-				p3.setLayout(new GridLayout(5, 2, 0, 10));
-				p3.add(b2);
-				p3.add(start);
-				p3.add(b1);
-				p3.add(end);
-				p3.add(b7);
-				
-				//p4.setLayout(new());
-				
-				p3.add(b3);
-				//p3.add(someFile);
-				//a panel to add button 4 and a layout
-				p3.add(b4);
-				//p3.add(someFile);
-				//a panel to add buttons 5 and a layout
-				p3.add(b5);
-				//To set the background color of the buttons panel red
-				//p3.setBackground(Color.red);
-				p3.add(b6);
-				
-				
-
-				b1.addActionListener(new ActionListener()
-					{
-						public void actionPerformed(ActionEvent e)
-							{
-								orginizedByLengthDict = new String[29][];
-								loadDictionary(someFile.getText());
-								pA.paintString(dictionary.length);
-
-								start();
-							}
-					});
-
-				b2.addActionListener(new ActionListener()
-					{
-						public void actionPerformed(ActionEvent e)
-							{
-								orginizedByLengthDict = new String[29][];
-								String[] tmpArray;
-								StringTokenizer st;
-								String s = textArea.getText();
-								st = new StringTokenizer(s);
-								tmpArray = new String[st.countTokens()];
-								String tmp;
-								for (int i = 0; i < tmpArray.length; i++)
-									{
-										tmp = st.nextToken();
-										if (tmp != null)
-											{
-												tmpArray[i] = tmp;
-											}
-									}
-								dictionary = tmpArray;
-								pA.paintString(dictionary.length);
-								start();
-
-							}
-					});
-
-				b3.addActionListener(new ActionListener()
-					{
-						public void actionPerformed(ActionEvent e)
-							{
-								long startTime = System.currentTimeMillis();
-								long totalTime = 0;
-								if (start.getText().length() != end.getText()
-										.length())
-									{
-										JOptionPane.showMessageDialog(null,
-												"Error: Strings must be"
-														+ "of equal length");
-										return;
-									}
-
-								if (exist(start.getText().toLowerCase()) == false)
-									{
-										JOptionPane
-												.showMessageDialog(
-														null,
-														"Error: "
-																+ start.getText()
-																+ " Is not in the Dictionary");
-										return;
-									}
-
-								if (exist(end.getText().toLowerCase()) == false)
-									{
-										JOptionPane
-												.showMessageDialog(
-														null,
-														"Error: "
-																+ end.getText()
-																+ " Is not in the Dictionary");
-										return;
-									}
-								
-								// swap result
-								int length = start.getText().length();
-								Graph g = new Graph();
-								String[] someStrings;
-								String line;
-								someStrings = getAllStrings(length);
-								StringTokenizer st;
-								for (int i = 0; i < someStrings.length; i++)
-									{
-										line = someStrings[i];
-										st = new StringTokenizer(line);
-										String source = st.nextToken();
-										int manyTokens = st.countTokens();
-										for (int j = 0; j < manyTokens; j++)
-											{
-												int destIndex = Integer
-														.parseInt(st
-																.nextToken());
-												g.addEdge(
-														source,
-														someStrings[destIndex]
-																.substring(0,
-																		length),
-														1);
-											}
-									}
-
-								g.unweighted(start.getText().toLowerCase()
-										.trim());
-								g.printPath(end.getText().toLowerCase().trim());
-								String s2 = g.getS();
-								totalTime = System.currentTimeMillis()
-										- startTime;
-								elapsedTime = totalTime;
-								pA.setTime(elapsedTime);
-								pA.setCost(g.getCost());
-								pA.paintResult(s2);
-								// System.out.println(s2);
-					
-							}
-					});
-				
-				
-				b7.addActionListener(new ActionListener()
-				{
-					public void actionPerformed(ActionEvent e)
-						{
-							long startTime = System.currentTimeMillis();
-							long totalTime = 0;
-							/*
-							 * if (start.getText().length() != end.getText()
-									.length())
-								{
-									JOptionPane.showMessageDialog(null,
-											"Error: Strings must be"
-													+ "of equal length");
-									return;
-								}
-								*/
-
-							if (exist(start.getText().toLowerCase()) == false)
-								{
-									JOptionPane
-											.showMessageDialog(
-													null,
-													"Error: "
-															+ start.getText()
-															+ " Is not in the Dictionary");
-									return;
-								}
-
-							/*
-							 * if (exist(end.getText().toLowerCase()) == false)
-								{
-									JOptionPane
-											.showMessageDialog(
-													null,
-													"Error: "
-															+ end.getText()
-															+ " Is not in the Dictionary");
-									return;
-								}
-								*/
-							int length = start.getText().length();
-							Graph g = new Graph();
-							String[] someStrings;
-							String line;
-							someStrings = getAllStrings(length);
-							StringTokenizer st;
-							for (int i = 0; i < someStrings.length; i++)
-								{
-									line = someStrings[i];
-									st = new StringTokenizer(line);
-									String source = st.nextToken();
-									int manyTokens = st.countTokens();
-									for (int j = 0; j < manyTokens; j++)
-										{
-											int destIndex = Integer
-													.parseInt(st
-															.nextToken());
-											g.addEdge(
-													source,
-													someStrings[destIndex]
-															.substring(0,
-																	length),
-													1);
-										}
-								}
-
-							g.unweighted(start.getText().toLowerCase()
-									.trim());
-							//g.printPath(end.getText().toLowerCase().trim());
-							String s2 = g.getS();
-							//my code
-							//String s3 = g.getS();
-							totalTime = System.currentTimeMillis()
-									- startTime;
-							elapsedTime = totalTime;
-							pA.setTime(elapsedTime);
-							pA.setCost(g.getCost());
-							pA.paintResult(s2);
-							// System.out.println(s2);
-						}
-				});
-				
-				
-				b6.addActionListener(new ActionListener()
-=======
 	public Dictionary(String string) {
 		initComponents();
 	}
@@ -516,7 +230,6 @@ public class Dictionary extends JApplet {
 		b4.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
->>>>>>> a6c41b61db0e8ad02be2ea722572fd1d6c09c2d8
 				{
 					long startTime = System.currentTimeMillis();
 					long totalTime = 0;
@@ -706,31 +419,6 @@ public class Dictionary extends JApplet {
 	 * {@link appendPremutations()}
 	 * 
 	 */
-<<<<<<< HEAD
-		private void runWork()
-			{
-				long startTime = System.currentTimeMillis();
-				long totalTime = 0;
-				b3.setEnabled(false);
-				b1.setEnabled(false);
-				b2.setEnabled(false);
-				// new
-				b7.setEnabled(false);
-				appendPremutations();
-				b1.setEnabled(true);
-				b2.setEnabled(true);
-				b3.setText("Find Path");
-				b3.setEnabled(true);
-				//new
-				b7.setText("Find Path with 3 steps");
-				//new
-				b7.setEnabled(true);
-				
-				totalTime = System.currentTimeMillis() - startTime;
-				elapsedTime = totalTime;
-				pA.setTime(elapsedTime);
-			}
-=======
 	private void runWork() {
 		long startTime = System.currentTimeMillis();
 		long totalTime = 0;
@@ -746,32 +434,39 @@ public class Dictionary extends JApplet {
 		elapsedTime = totalTime;
 		pA.setTime(elapsedTime);
 	}
->>>>>>> a6c41b61db0e8ad02be2ea722572fd1d6c09c2d8
 
 	/**
 	 * 
 	 * @param file_name
 	 */
 	public void loadDictionary(String file_name) {
+  		databaseInfo dbInfo = new databaseInfo();
+        ArrayList<DictionaryWord> dictionaryWords = dbInfo.getWordsFromDatabase();
+  
+  		dictionary = new String[dictionaryWords.size()];
+  
+  	    for (int i = 0; i < dictionaryWords.size(); i++) {
+          dictionary[i] = dictionaryWords.get(i).getWord();
+        }
 
-		File file = new File(file_name);
-		byte[] bytes = new byte[(int) file.length()];
-		FileInputStream fis = null;
-		try {
-			fis = new FileInputStream(file);
-		} catch (FileNotFoundException e1) {
-			JOptionPane.showMessageDialog(null, "There was an error" + " reading the file");
-			e1.printStackTrace();
-		}
-		try {
-			fis.read(bytes);
-			fis.close();
-		} catch (IOException k) {
-			JOptionPane.showMessageDialog(null, "There was an error" + " reading the file's bytes");
-			k.printStackTrace();
-		}
-
-		dictionary = new String(bytes).trim().split("\\s+");
+		//File file = new File(file_name);
+		//byte[] bytes = new byte[(int) file.length()];
+		//FileInputStream fis = null;
+		//try {
+		//	fis = new FileInputStream(file);
+		//} catch (FileNotFoundException e1) {
+		//	JOptionPane.showMessageDialog(null, "There was an error" + " reading the file");
+		//	e1.printStackTrace();
+		//}
+		//try {
+		//	fis.read(bytes);
+		//	fis.close();
+		//} catch (IOException k) {
+		//	JOptionPane.showMessageDialog(null, "There was an error" + " reading the file's bytes");
+		//	k.printStackTrace();
+		//}
+//
+		//dictionary = new String(bytes).trim().split("\s+");
 
 	}
 
