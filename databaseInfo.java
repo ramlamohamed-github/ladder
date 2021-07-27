@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class databaseInfo {
 	//public static void main(String[] args) {
-    public ArrayList<DictionaryWord> getWordsFromDatabase() {
-      	ArrayList<DictionaryWord> dictionaryWords = new ArrayList<DictionaryWord>();
+    public ArrayList<String> getWordsFromDatabase() {
+      	ArrayList<String> dictionaryWords = new ArrayList<String>();
 			
 		Connection db_connection = null;
 		try {
@@ -35,24 +35,25 @@ public class databaseInfo {
 			// See https://docs.oracle.com/javase/7/docs/api/java/sql/ResultSet.html
 
 			while (result_set.next()) {
-				String Words = result_set.getString("Words");
+				String Words = result_set.getString("Word");
 				String Length = result_set.getString("Length");
-				String WordID = result_set.getString("Word_ID");
+				dictionaryWords.add(Words);
 
 				//System.out.println(Word);
 				//System.out.println(Length);
 				//System.out.println(WordID);
-              	dictionaryWords.add(new DictionaryWord(Words, Length, WordID));
+              	
                 
 
 			} // end while
-
+		System.out.println(dictionaryWords);
 		} // end try
 		catch (Exception ex) {
 			ex.printStackTrace();
 		} // end catch
+		return dictionaryWords;
       
-      return dictionaryWords;
+      
 
 	} // end main method
 

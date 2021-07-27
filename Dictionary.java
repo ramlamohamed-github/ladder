@@ -441,33 +441,35 @@ public class Dictionary extends JApplet {
 	 */
 	public void loadDictionary(String file_name) {
   		databaseInfo dbInfo = new databaseInfo();
-        ArrayList<DictionaryWord> dictionaryWords = dbInfo.getWordsFromDatabase();
+        ArrayList<String> dictionaryWords = dbInfo.getWordsFromDatabase();
   
   		dictionary = new String[dictionaryWords.size()];
   
   	    for (int i = 0; i < dictionaryWords.size(); i++) {
-          dictionary[i] = dictionaryWords.get(i).getWord();
+          dictionary[i] = dictionaryWords.get(i);
         }
-
-		//File file = new File(file_name);
-		//byte[] bytes = new byte[(int) file.length()];
-		//FileInputStream fis = null;
-		//try {
-		//	fis = new FileInputStream(file);
-		//} catch (FileNotFoundException e1) {
-		//	JOptionPane.showMessageDialog(null, "There was an error" + " reading the file");
-		//	e1.printStackTrace();
-		//}
-		//try {
-		//	fis.read(bytes);
-		//	fis.close();
-		//} catch (IOException k) {
-		//	JOptionPane.showMessageDialog(null, "There was an error" + " reading the file's bytes");
-		//	k.printStackTrace();
-		//}
+		
+		/*
+		File file = new File(file_name);
+		byte[] bytes = new byte[(int) file.length()];
+		FileInputStream fis = null;
+		try {
+			fis = new FileInputStream(file);
+		} catch (FileNotFoundException e1) {
+			JOptionPane.showMessageDialog(null, "There was an error" + " reading the file");
+			e1.printStackTrace();
+		}
+		try { 
+			fis.read(bytes);
+			fis.close();
+		} catch (IOException k) {
+			JOptionPane.showMessageDialog(null, "There was an error" + " reading the file's bytes");
+			k.printStackTrace();
+		}
 //
-		//dictionary = new String(bytes).trim().split("\s+");
-
+		dictionary = new String(bytes).trim().split("\s+");
+		*/
+		
 	}
 
 	/**
