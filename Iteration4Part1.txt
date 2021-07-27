@@ -1,0 +1,75 @@
+import java.util.Scanner;
+import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Arrays; 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ArrayList;
+
+public class Main {
+
+  public static boolean matching(String word,String line){
+ String newline = line.replaceAll("[AEIOUaeiou]","");
+ String newword = word.replaceAll("[AEIOUaeiou]","");
+  char[] wordarr = newword.toCharArray();
+  char[] linearr = newline.toCharArray();
+  Arrays.sort(wordarr);
+  Arrays.sort(linearr);
+  return Arrays.equals(wordarr,linearr);
+}
+  public static void main(String[] args) throws FileNotFoundException  {
+    File obj = new File("dictionary.txt");
+    Scanner txt = new Scanner(obj);
+    Scanner input = new Scanner(System.in);
+    System.out.println("Enter a word:");
+    String word = input.nextLine();
+    ArrayList<String> arr = new ArrayList<String>();
+    HashMap<String, ArrayList> map = new HashMap<String, ArrayList>();
+
+int count = 0;
+
+while(txt.hasNextLine()) {
+ int length = word.length();
+ String line = txt.nextLine();
+String result = line.replaceAll("[AEIOUaeiou]","");String wordresult = word.replaceAll("[AEIOUaeiou]","");
+char[] wordresultarr = wordresult.toCharArray();
+char[] resultarr = result.toCharArray();
+Arrays.sort(resultarr);
+Arrays.sort(wordresultarr);
+result = new String(resultarr);
+wordresult = new String(wordresultarr);
+result = result.replaceAll(" ", "");
+wordresult=wordresult.replaceAll(" ","");
+ if(map.size()==0){
+arr.add(word);
+ map.put(wordresult,arr);
+ }
+  if(length==(line.length())){
+    boolean exists = map.containsKey(result);
+     if(exists){
+              map.get(result).add(line);
+            }
+      
+      else{
+        ArrayList<String> newarr = new ArrayList<String>();
+         newarr.add(line);
+         map.put(result,newarr);
+
+      }
+     count++;
+  }
+
+  }
+   for (Map.Entry<String, ArrayList> entry : map.entrySet()) {
+         String key = entry.getKey();
+        ArrayList<String> value = new ArrayList<String>();
+        value = entry.getValue();
+         System.out.println(key);
+         for(int i=0; i < value.size(); i++){
+            System.out.println( value.get(i) );
+        }
+         
+  }
+}
+}
