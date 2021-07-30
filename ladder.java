@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
@@ -80,6 +81,17 @@ public class ladder {
 			
 			return 0;
 			}
+	
+	public void loadDictionary(String file_name) {
+  		databaseInfo dbInfo = new databaseInfo();
+        ArrayList<String> dictionaryWords = dbInfo.getWordsFromDatabase();
+  
+  		String[] dictionary = new String[dictionaryWords.size()];
+  
+  	    for (int i = 0; i < dictionaryWords.size(); i++) {
+          dictionary[i] = dictionaryWords.get(i);
+        }
+	}
 
 	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
