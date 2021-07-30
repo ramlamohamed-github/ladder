@@ -71,3 +71,28 @@ FInding the path between two words:
 3. From that ArrayList, find out where the 1st word is sitting. And find out where the 2nd word is sitting.
 4. Print out all the words from index1 to index2.
 
+
+
+(Iteration 4 feedback based on the demo given on 7/29)
+
+
+THere is no need for you to ask the user to enter a word when you are building the graph;
+============================================
+
+When you are printing out, print each collection separately.
+
+Words for the consonants: MN
+MOON
+MN
+MOON
+MOAN
+NOOM
+
+Words for consonants: LM
+LM
+LOOM
+
+Words for consonants: RT
+RT
+ROAT
+
