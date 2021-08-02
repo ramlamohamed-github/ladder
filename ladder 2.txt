@@ -1,0 +1,141 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Scanner;
+import java.util.Set;
+
+public class ladder {
+
+	  public static boolean matching(String word,String line){
+	  String newline = line.replaceAll("/","");
+	  String newword = word.replaceAll("/","");
+	  char[] wordarr = newword.toCharArray();
+	  char[] linearr = newline.toCharArray();
+	  Arrays.sort(wordarr);
+	  Arrays.sort(linearr);
+	  return Arrays.equals(wordarr,linearr);
+	}
+	  public static void main1(String[] args) throws FileNotFoundException{
+	    File obj = new File("dictionary.txt");
+	    Scanner txt = new Scanner(obj);
+	    Scanner input = new Scanner(System.in);
+	    System.out.println("Enter a word:");
+	    String word = input.nextLine();
+	    ArrayList<String> arr = new ArrayList<String>();
+	    HashMap<String, ArrayList> map = new HashMap<String, ArrayList>();
+
+	int count = 0;
+
+	while(txt.hasNextLine()) {
+	int length = word.length();
+	String line = txt.nextLine();
+	String result = line.replaceAll("/","");String wordresult = word.replaceAll("/","");
+	char[] wordresultarr = wordresult.toCharArray();
+	char[] resultarr = result.toCharArray();
+	Arrays.sort(resultarr);
+	Arrays.sort(wordresultarr);
+	result = new String(resultarr);
+	wordresult = new String(wordresultarr);
+	result = result.replaceAll(" ", "");
+	wordresult=wordresult.replaceAll(" ","");
+	 if(map.size()==0){
+	arr.add(word);
+	 map.put(wordresult,arr);
+	 }
+	  if(length==(line.length())){
+	    boolean exists = map.containsKey(result);
+	     if(exists){
+	              map.get(result).add(line);
+	            }
+	      
+	      else{
+	        ArrayList<String> newarr = new ArrayList<String>();
+	         newarr.add(line);
+	         map.put(result,newarr);
+
+	      }
+	     count++;
+	  }
+
+	  }
+	   for (Map.Entry<String, ArrayList> entry : map.entrySet()) {
+	         String key = entry.getKey();
+	        ArrayList<String> value = new ArrayList<String>();
+	        value = entry.getValue();
+	         System.out.println(key);
+	         for(int i=0; i < value.size(); i++){
+	            System.out.println( value.get(i) );
+	        }
+	         
+	  }
+	}
+	
+	
+	public static void loadDictionary(String file_name) {
+  		databaseInfo dbInfo = new databaseInfo();
+        ArrayList<String> dictionaryWords = dbInfo.getWordsFromDatabase();
+  
+  		String[] dictionary = new String[dictionaryWords.size()];
+  
+  	    for (int i = 0; i < dictionaryWords.size(); i++) {
+          dictionary[i] = dictionaryWords.get(i);
+        }
+		
+		
+	}
+
+	public static void main(String[] args) {
+		String dictionaryWords = null;
+		loadDictionary(dictionaryWords);
+		Scanner input = new Scanner(System.in);
+		System.out.println("Hello and Welcome, please choose a game mode");
+		System.out.println("1. Build Swap Graph");
+		System.out.println("2. Find the path between 2 words");
+		System.out.println("3. Find all paths of a word with N Steps");
+		System.out.println("4. Find a path from a word with 10 steps and generate a html file");
+
+		// System.out.println("Enter a number to choose that game mode:");
+		int choiceentry = -1;
+
+		while (choiceentry < 1 || choiceentry > 4) {
+
+			System.out.println("Enter a number to choose that game mode:");
+			if (input.hasNextInt())
+				choiceentry = input.nextInt();
+
+		}
+
+		switch (choiceentry) {
+		case 1:
+			// do logic
+			System.out.println("Graph built successful");
+			break;
+		case 2:
+			// do logic
+			System.out.println("Enter the starting word");
+			String start = input.nextLine();
+			input.nextLine();
+			System.out.println("Enter the ending word");
+			String target = input.nextLine();
+			
+			//shortestChainLen(String start, String target, dictionaryWords);
+			break;
+		case 3:
+			// do logic
+			System.out.println("Enter the starting word");
+			String startValue = input.nextLine();
+			break;
+		case 4:
+			System.out.println("HTML file puzzle created");
+			break;
+		case 5:
+			System.out.println("Goodbye");
+			break;
+		}
+	}
+}
