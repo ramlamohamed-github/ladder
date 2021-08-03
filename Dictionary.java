@@ -13,7 +13,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
-
+import java.util.*;
+import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JApplet;
 import javax.swing.JButton;
@@ -67,6 +68,16 @@ public class Dictionary extends JApplet {
 	/**
 	* 
 	*/
+	public static boolean matching(String word,String line){
+			 String newline = line.replaceAll("[AEIOUaeiou]","");
+			 String newword = word.replaceAll("[AEIOUaeiou]","");
+			  char[] wordarr = newword.toCharArray();
+			  char[] linearr = newline.toCharArray();
+			  Arrays.sort(wordarr);
+			  Arrays.sort(linearr);
+			  return Arrays.equals(wordarr,linearr);
+			}
+	
 	public void initComponents() {
 		setLayout(new BorderLayout());
 		sP = new JScrollPane(textArea);
