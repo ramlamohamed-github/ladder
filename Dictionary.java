@@ -296,7 +296,13 @@ public class Dictionary extends JApplet {
 								System.out.println("added");
 
 									
-								}
+					    			}
+					         	if (matching(frstwrd,sndwrd))
+							{
+							System.out.println("It's an anagram");
+							
+								
+							}
 							
 							int lengtharr = dictionary.length;
 							for(int i=0;i<lengtharr;i++) {
