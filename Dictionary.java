@@ -227,107 +227,166 @@ public class Dictionary extends JApplet {
 		});
 
 		//anagram method
-		b4.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
+				b4.addActionListener(new ActionListener()
 				{
-					long startTime = System.currentTimeMillis();
-					long totalTime = 0;
-					if (start.getText().length() != end.getText()
-							.length())
+					public void actionPerformed(ActionEvent e)
 						{
-							JOptionPane.showMessageDialog(null,
-									"Error: Strings must be"
-											+ "of equal length");
-							return;
-						}
-
-					if (exist(start.getText().toLowerCase()) == false)
-						{
-							JOptionPane
-									.showMessageDialog(
-											null,
-											"Error: "
-													+ start.getText()
-													+ " Is not in the Dictionary");
-							return;
-						}
-
-					if (exist(end.getText().toLowerCase()) == false)
-						{
-							JOptionPane
-									.showMessageDialog(
-											null,
-											"Error: "
-													+ end.getText()
-													+ " Is not in the Dictionary");
-							return;
-						}
-
-					// swap result
-					//length of first word input
-					int length = start.getText().length();
-					//create new graph
-					String frstwrd = start.getText();
-
-					Graph g = new Graph();
-
-					String[] someStrings;
-
-					String line;
-					//get all strings that are same length
-					someStrings = getAllStrings(length);
-					//create tokenizer
-					StringTokenizer st;
-					String lstwrd = frstwrd;
-					String prevwrd = frstwrd;
-					//go through string array
-					for (int i = 0; i < someStrings.length; i++)
-						{
-
-						String arrwrd = someStrings[i].substring(0,length);
-						String[] frstwrdarr = frstwrd.split("");
-						boolean contain = Arrays.asList(arrwrd.split("")).containsAll(Arrays.asList(frstwrdarr));
-						int count=0;
-						if(contain) {
-					         for(int j=0;j<frstwrdarr.length;j++){
-					             char ltr = arrwrd.charAt(j);
-					            int num = frstwrd.indexOf(ltr);
-					            if(num==-1){
-					                count++;
-					            }
-					         }
-							if(count==0) {
-								System.out.println(frstwrd);
-								System.out.println(arrwrd);
-								System.out.println(contain);
-								g.addEdge(prevwrd,someStrings[i].substring(0,length),1);
-								prevwrd = lstwrd;
-								lstwrd=arrwrd;
+						  ArrayList<String> arr = new ArrayList<String>();
+						  HashMap<String, ArrayList> map = new HashMap<String, ArrayList>();
+						  
+						orginizedByLengthDict = new String[29][];
+						String[] tmpArray;
+						StringTokenizer st;
+						String s = textArea.getText();
+						st = new StringTokenizer(s);
+						tmpArray = new String[st.countTokens()];
+						String tmp;
+						for (int i = 0; i < tmpArray.length; i++)
+							{
+								tmp = st.nextToken();
+								if (tmp != null)
+									{
+										tmpArray[i] = tmp;
+									}
 							}
+						dictionary = tmpArray;
+						int length = start.getText().length();
+						List<String> nameList = Arrays.asList(dictionary);
 
+						//create new graph
+						String frstwrd = start.getText();
+						String sndwrd = end.getText();
+							long startTime = System.currentTimeMillis();
+							long totalTime = 0;
+							if (start.getText().length() != end.getText()
+									.length())
+								{
+									JOptionPane.showMessageDialog(null,
+											"Error: Strings must be"
+													+ "of equal length");
+									return;
+								}
 
+							if(!(nameList.contains(frstwrd)))
+								{
+								String[] result = Arrays.copyOf(dictionary, dictionary.length + 1);
+							     result[result.length - 1] = frstwrd;
+							     dictionary=result;
+								System.out.println("added");
+									
+								}
 
+							if (!(nameList.contains(sndwrd)))
+								{
+								String[] result = Arrays.copyOf(dictionary, dictionary.length + 1);
+							     result[result.length - 1] = sndwrd;
+							     dictionary=result;
+								//nameList.add(sndwrd);
+								System.out.println("added");
+
+									
+								}
+							
+							int lengtharr = dictionary.length;
+							for(int i=0;i<lengtharr;i++) {
+								 String line = dictionary[i];
+								 String result = line.replaceAll("[AEIOUaeiou]","");
+								 char[] resultarr = result.toCharArray();
+								 Arrays.sort(resultarr);
+								 result = new String(resultarr);
+								 result = result.replaceAll(" ", "");
+								 
+								 boolean exists = map.containsKey(result);
+							     if(exists){
+							              map.get(result).add(line);
+							            }
+							      
+							      else{
+							        ArrayList<String> newarr = new ArrayList<String>();
+							         newarr.add(line);
+							         map.put(result,newarr);
+							      }
+							}
+							
+							for (Map.Entry<String, ArrayList> entry : map.entrySet()) {
+						         String key = entry.getKey();
+						        ArrayList<String> value = new ArrayList<String>();
+						        value = entry.getValue();
+						         System.out.println("Words for the consonants: " + key); 
+						         for(int i=0; i < value.size(); i++){
+						            System.out.println( value.get(i) );
+						        }
+						        System.out.println(" ");
+						         
+						  }
+							// swap result
+							//length of first word input
+							/*
+							int length = start.getText().length();
+							//create new graph
+							String frstwrd = start.getText();
+							
+							Graph g = new Graph();
+							//array of all stirngs in dictionary
+							String[] someStrings;
+							//line
+							String line;
+							//get all strings that are same length
+							someStrings = getAllStrings(length);
+							//create tokenizer
+							StringTokenizer st;
+							String lstwrd = frstwrd;
+							String prevwrd = frstwrd;
+							//go through string array
+							for (int i = 0; i < someStrings.length; i++)
+								{
+								
+								String arrwrd = someStrings[i].substring(0,length);
+								String[] frstwrdarr = frstwrd.split("");
+								boolean contain = Arrays.asList(arrwrd.split("")).containsAll(Arrays.asList(frstwrdarr));
+								int count=0;
+								if(contain) {
+							         for(int j=0;j<frstwrdarr.length;j++){
+							             char ltr = arrwrd.charAt(j);
+							            int num = frstwrd.indexOf(ltr);
+							            if(num==-1){
+							                count++;
+							            }
+							         }
+									if(count==0) {
+										System.out.println(frstwrd);
+										System.out.println(arrwrd);
+										System.out.println(contain);
+										g.addEdge(prevwrd,someStrings[i].substring(0,length),1);
+										prevwrd = lstwrd;
+										lstwrd=arrwrd;
+									}
+										
+									
+									
+								}
+								
+		
+								}
+
+							g.unweighted(start.getText().toLowerCase()
+									.trim());
+							g.printPath(lstwrd.toLowerCase().trim());
+							String s2 = g.getS();
+							
+							//time
+							totalTime = System.currentTimeMillis()
+									- startTime;
+							elapsedTime = totalTime;
+							pA.setTime(elapsedTime);
+							pA.setCost(g.getCost());
+							pA.paintResult(s2);
+							System.out.println(s2);
+							*/
+				
 						}
-
-
-						}
-
-					g.unweighted(start.getText().toLowerCase()
-							.trim());
-					g.printPath(lstwrd.toLowerCase().trim());
-					String s2 = g.getS();
-					//time
-					totalTime = System.currentTimeMillis()
-							- startTime;
-					elapsedTime = totalTime;
-					pA.setTime(elapsedTime);
-					pA.setCost(g.getCost());
-					pA.paintResult(s2);
-					System.out.println(s2);
-
-				}
-		});
+				});
+				
 
 		// HTML button
 		b6.addActionListener(new ActionListener() {
