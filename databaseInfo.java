@@ -15,7 +15,7 @@ public class databaseInfo {
 //			Class.forName("com.mysql.jdbc.Driver");
 			
 			// Step 1: Get the connection object for the database
-			String url = "jdbc:mysql://localhost/ladder";
+			String url = "jdbc:mysql://127.0.0.1:3308/ladder";
 			String user = "root";
 			String password = "";
 			db_connection = DriverManager.getConnection(url, user, password);
