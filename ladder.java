@@ -315,157 +315,195 @@ public class ladder extends databaseInfo {
 			
 			break;
 		case 3:
+		
 			System.out.println("Enter number of steps");
-			String startValue3 = "aah";
-			
-			String endValue3 = "zygotes";
 			int steps = input.nextInt();
+			System.out.println("Enter word");
+			String startValue3 =input.next();
+			startValue3 = startValue3.toLowerCase();
 			int j2=0;
 			while (result_set.next()) {
 				
 				String Words = result_set.getString("Word");
-				
+				 Words=Words.toLowerCase();
 					dictionaryWords.add(Words);	
 					j2++;
 				
 				}
-			int startpoint3 = dictionaryWords.indexOf(startValue3);
-			int endpoint3 = dictionaryWords.indexOf(endValue3);
+		
 			
-			
-			 ArrayList<String> arr3 = new ArrayList<String>();
-	            
-	     
-			  HashMap<String, ArrayList> map3 = new HashMap<String, ArrayList>();
+			  int startpoint3 = dictionaryWords.indexOf(startValue3);
+
 			  int length3 = startValue3.length();
-			  for(int a=0;a<dictionaryWords.size();a++) {
+			  String endValue3 = "null";
+			  for(int a=startpoint3;a<dictionaryWords.size();a++) {
 				  String word = dictionaryWords.get(a);
-				 
-					  String result = word.replaceAll("[AEIOUaeiou]","");
-						 char[] resultarr = result.toCharArray();
-						 Arrays.sort(resultarr);
-						 result = new String(resultarr);
-						 result = result.replaceAll(" ", "");
-						 boolean exists = map3.containsKey(result);
-					     if(exists){
-					              map3.get(result).add(word);
-					            }
-					      
-					      else{
-					        ArrayList<String> newarr = new ArrayList<String>();
-					         newarr.add(word);
-					         map3.put(result,newarr);
+				  
+
+				  if(word.length()==length3) {
+					if(matching(word,startValue3)) {
+						  ArrayList<String> arr3 = new ArrayList<String>();
+						 endValue3 = word;
+						 endValue3 = endValue3.toLowerCase();
+							int endpoint3 = dictionaryWords.indexOf(endValue3);
+					          List<String> arrlist23 = dictionaryWords.subList(startpoint3, (endpoint3+1));
+					         
+					          HashMap<String, ArrayList> map3 = new HashMap<String, ArrayList>();				        	  
+								  for(int c=0;c<arrlist23.size();c++) {
+									  String words = arrlist23.get(c);
+									  if(words.length()==length3) {
+										  String result = words.replaceAll("[AEIOUaeiou]","");
+											 char[] resultarr = result.toCharArray();
+											 Arrays.sort(resultarr);
+											 result = new String(resultarr);
+											 result = result.replaceAll(" ", "");
+											 boolean exists = map3.containsKey(result);
+										     if(exists){
+										    	 
+										              map3.get(result).add(words);
+										            }
+										      
+										      else{
+										        ArrayList<String> newarr = new ArrayList<String>();
+										         newarr.add(words);
+										         map3.put(result,newarr);
+									  }
+									  
+									  
+								  }
+								  }
+								  
+								  
+								
+					          
+					          String result = startValue3.replaceAll("[AEIOUaeiou]","");
+								 char[] resultarr = result.toCharArray();
+								 Arrays.sort(resultarr);
+								 result = new String(resultarr);
+								 result = result.replaceAll(" ", "");
+							  for (Map.Entry<String, ArrayList> entry : map3.entrySet()) {
+							         String key = entry.getKey();
+							         ArrayList<String> value = new ArrayList<String>();
+								     value = entry.getValue();
+								     if(startValue3.equals(value.get(0))) {
+								    	 int size = value.size();
+								    	if(size==steps) {
+								    		  for(int i=0; i < value.size(); i++){
+										        	 if(i==(value.size()-1)) {
+												            System.out.print( value.get(i));
+
+										        	 }
+										        	 else {
+										        		 System.out.print( value.get(i) + " > ");
+										        	 }
+										            
+										        }
+								    	}
+								        
+								     }
+
+							  }
+
+					       
+					  }
+					 
 				  }
-				  
-				  
-			  
+				 
 			  }
-			  int count=0;
-
-			  String result = startValue3.replaceAll("[AEIOUaeiou]","");
-				 char[] resultarr = result.toCharArray();
-				 Arrays.sort(resultarr);
-				 result = new String(resultarr);
-				 result = result.replaceAll(" ", "");
-				
-				 for (Map.Entry<String, ArrayList> entry : map3.entrySet()) {
-			         String key = entry.getKey();
-			         ArrayList<String> value = new ArrayList<String>();
-				     value = entry.getValue();
-				     if(value.size()==steps) {
-				    	 System.out.print(count +". ");
-				    	 for(int i=0; i < value.size(); i++){
-				    		 count++;
-				        	 if(i==(value.size()-1)) {
-						            System.out.print( value.get(i));
-
-				        	 }
-				        	 else {
-				        		 System.out.print( value.get(i) + " > ");
-				        	 }
-				        };
-				        System.out.println(" ");
-				     }
-				     
-			  }
-			  
-
 	
 			
 			break;
-		case 4:
-			System.out.println("Enter number of steps");
-			String startValue4 = "aah";
-			
-			String endValue4 = "zygotes";
-			int steps2 = 10;
+		case 4: System.out.println("Enter word");
+			String startValue4 =input.next();
+			startValue4 = startValue4.toLowerCase();
 			int j3=0;
 			while (result_set.next()) {
 				
 				String Words = result_set.getString("Word");
-				
+				 Words=Words.toLowerCase();
 					dictionaryWords.add(Words);	
 					j3++;
 				
 				}
-			int startpoint4 = dictionaryWords.indexOf(startValue4);
-			int endpoint4 = dictionaryWords.indexOf(endValue4);
+		
+			dictionaryWords.replaceAll(String::toUpperCase);
+
 			
-			
-			 ArrayList<String> arr4 = new ArrayList<String>();
-	            
-	     
-			  HashMap<String, ArrayList> map4 = new HashMap<String, ArrayList>();
+			  int startpoint4 = dictionaryWords.indexOf(startValue4);
+
 			  int length4 = startValue4.length();
-			  for(int a=0;a<dictionaryWords.size();a++) {
+			  String endValue4 = "null";
+			  for(int a=startpoint4;a<dictionaryWords.size();a++) {
 				  String word = dictionaryWords.get(a);
-				 
-					  String result2 = word.replaceAll("[AEIOUaeiou]","");
-						 char[] resultarr2 = result2.toCharArray();
-						 Arrays.sort(resultarr2);
-						 result2 = new String(resultarr2);
-						 result2 = result2.replaceAll(" ", "");
-						 boolean exists = map4.containsKey(result2);
-					     if(exists){
-					              map4.get(result2).add(word);
-					            }
-					      
-					      else{
-					        ArrayList<String> newarr = new ArrayList<String>();
-					         newarr.add(word);
-					         map4.put(result2,newarr);
+				  if(word.length()==length4) {
+					if(matching(word,startValue4)) {
+						  ArrayList<String> arr3 = new ArrayList<String>();
+						 endValue4 = word;
+						 endValue4 = endValue4.toLowerCase();
+							int endpoint3 = dictionaryWords.indexOf(endValue4);
+					          List<String> arrlist23 = dictionaryWords.subList(startpoint4, (endpoint3+1));
+					         
+					          HashMap<String, ArrayList> map3 = new HashMap<String, ArrayList>();				        	  
+								  for(int c=0;c<arrlist23.size();c++) {
+									  String words = arrlist23.get(c);
+									  if(words.length()==length4) {
+										  String result = words.replaceAll("[AEIOUaeiou]","");
+											 char[] resultarr = result.toCharArray();
+											 Arrays.sort(resultarr);
+											 result = new String(resultarr);
+											 result = result.replaceAll(" ", "");
+											 boolean exists = map3.containsKey(result);
+										     if(exists){
+										    	 
+										              map3.get(result).add(words);
+										            }
+										      
+										      else{
+										        ArrayList<String> newarr = new ArrayList<String>();
+										         newarr.add(words);
+										         map3.put(result,newarr);
+									  }
+									  
+									  
+								  }
+								  }
+								  
+								  
+								
+					          
+					          String result = startValue4.replaceAll("[AEIOUaeiou]","");
+								 char[] resultarr = result.toCharArray();
+								 Arrays.sort(resultarr);
+								 result = new String(resultarr);
+								 result = result.replaceAll(" ", "");
+							  for (Map.Entry<String, ArrayList> entry : map3.entrySet()) {
+							         String key = entry.getKey();
+							         ArrayList<String> value = new ArrayList<String>();
+								     value = entry.getValue();
+								     if(startValue4.equals(value.get(0))) {
+								    	 int size = value.size();
+								    	if(size==10) {
+								    		  for(int i=0; i < value.size(); i++){
+										        	 if(i==(value.size()-1)) {
+												            System.out.print( value.get(i));
+
+										        	 }
+										        	 else {
+										        		 System.out.print( value.get(i) + " > ");
+										        	 }
+										            
+										        }
+								    	}
+								        
+								     }
+
+							  }
+
+					       
+					  }
+					 
 				  }
-				  
-				  
-			  
-			  }
-			  int count2=0;
-			  String result2 = startValue4.replaceAll("[AEIOUaeiou]","");
-				 char[] resultarr2 = result2.toCharArray();
-				 Arrays.sort(resultarr2);
-				 result = new String(resultarr2);
-				 result = result.replaceAll(" ", "");
-				
-				 for (Map.Entry<String, ArrayList> entry : map4.entrySet()) {
-			         String key = entry.getKey();
-			         ArrayList<String> value = new ArrayList<String>();
-				     value = entry.getValue();
-				     if(value.size()==steps2) {
-			    		 System.out.print(count2 +". ");
-
-				    	 for(int i=0; i < value.size(); i++){
-				    		 count2++;
-				        	 if(i==(value.size()-1)) {
-						            System.out.print( value.get(i));
-
-				        	 }
-				        	 else {
-				        		 System.out.print( value.get(i) + " > ");
-				        	 }
-				        };
-				        System.out.println(" ");
-				     }
-				     
+				 
 			  }
 				 FileWriter html_file = new FileWriter("ladder.html");
 				 /*
