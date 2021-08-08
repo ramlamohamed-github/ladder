@@ -244,7 +244,8 @@ public class ladder extends databaseInfo {
 				while (result_set.next()) {
 					
 					String Words = result_set.getString("Word");
-					
+					 Words=Words.toLowerCase();
+
 						dictionaryWords.add(Words);	
 						j1++;
 					
