@@ -427,7 +427,6 @@ public class ladder extends databaseInfo {
 				
 				}
 		
-			dictionaryWords.replaceAll(String::toUpperCase);
 
 			
 			  int startpoint4 = dictionaryWords.indexOf(startValue4);
